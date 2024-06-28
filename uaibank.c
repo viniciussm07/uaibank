@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
+#include <time.h>
 
 struct USUARIO {
   int id;
@@ -12,7 +12,8 @@ struct USUARIO {
 
 void limparBuffer(void) {
   char c;
-  while ((c = getchar()) != '\n' && c != EOF);
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
 }
 
 void adiciona_usuario(struct USUARIO **array, int *tamanho) {
@@ -20,18 +21,19 @@ void adiciona_usuario(struct USUARIO **array, int *tamanho) {
 
   *array = realloc(*array, (*tamanho + 1) * sizeof(struct USUARIO));
   if (*array == NULL) {
-      printf("Erro ao alocar memoria.\n");
-      exit(1);
+    printf("Erro ao alocar memoria.\n");
+    exit(1);
   }
 
   limparBuffer();
 
-  printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
+  printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana "
+         "Silva):\n\n");
   fgets((*array)[*tamanho].nome, sizeof((*array)[*tamanho].nome), stdin);
 
   size_t len = strlen((*array)[*tamanho].nome);
   if (len > 0 && (*array)[*tamanho].nome[len - 1] == '\n') {
-      (*array)[*tamanho].nome[len - 1] = '\0';
+    (*array)[*tamanho].nome[len - 1] = '\0';
   }
 
   printf("\n\nDigite a idade e o saldo do usuario (Exemplo: 32 900.50):\n\n");
@@ -39,11 +41,14 @@ void adiciona_usuario(struct USUARIO **array, int *tamanho) {
 
   (*array)[*tamanho].id = rand();
 
-  printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n", (*array)[*tamanho].id, (*array)[*tamanho].nome, (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
+  printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n",
+         (*array)[*tamanho].id, (*array)[*tamanho].nome,
+         (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
 
   for (int i = 0; i <= *tamanho; i++) {
-      printf("\nUsuario %i: %i, %s, %d, %.2lf\n", i, (*array)[i].id, (*array)[i].nome, (*array)[i].idade, (*array)[i].saldo);
-  } //Mostra os usuários adicionados até então
+    printf("\nUsuario %i: %i, %s, %d, %.2lf\n", i, (*array)[i].id,
+           (*array)[i].nome, (*array)[i].idade, (*array)[i].saldo);
+  } // Mostra os usuários adicionados até então
 
   (*tamanho)++;
 }
@@ -56,123 +61,186 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   scanf("%d", &qnt_usuarios);
 
   if (qnt_usuarios <= 0) {
-      printf("\nO valor digitado deve ser maior que zero.\n");
-      return;
+    printf("\nO valor digitado deve ser maior que zero.\n");
+    return;
   }
 
   *array = realloc(*array, (*tamanho + qnt_usuarios) * sizeof(struct USUARIO));
   if (*array == NULL) {
-      printf("Erro ao alocar memoria.\n");
-      exit(1);
+    printf("Erro ao alocar memoria.\n");
+    exit(1);
   }
 
   for (int i = 0; i < qnt_usuarios; i++) {
-      limparBuffer();
+    limparBuffer();
 
-      printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
-      fgets((*array)[*tamanho].nome, sizeof((*array)[*tamanho].nome), stdin);
+    printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana "
+           "Silva):\n\n");
+    fgets((*array)[*tamanho].nome, sizeof((*array)[*tamanho].nome), stdin);
 
-      size_t len = strlen((*array)[*tamanho].nome);
+    size_t len = strlen((*array)[*tamanho].nome);
 
-      if (len > 0 && (*array)[*tamanho].nome[len - 1] == '\n') {
-          (*array)[*tamanho].nome[len - 1] = '\0';
-      }
+    if (len > 0 && (*array)[*tamanho].nome[len - 1] == '\n') {
+      (*array)[*tamanho].nome[len - 1] = '\0';
+    }
 
-      printf("\n\nDigite a idade e o saldo do usuario (Exemplo: 32 900.50):\n\n");
+    printf("\n\nDigite a idade e o saldo do usuario (Exemplo: 32 900.50):\n\n");
 
-      scanf("%d %lf", &(*array)[*tamanho].idade, &(*array)[*tamanho].saldo);
+    scanf("%d %lf", &(*array)[*tamanho].idade, &(*array)[*tamanho].saldo);
 
-      (*array)[*tamanho].id = rand();
+    (*array)[*tamanho].id = rand();
 
-      printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n", (*array)[*tamanho].id, (*array)[*tamanho].nome, (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
+    printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n",
+           (*array)[*tamanho].id, (*array)[*tamanho].nome,
+           (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
 
-      for (int j = 0; j <= *tamanho; j++) {
-          printf("\nUsuario %i: %i, %s, %d, %.2lf\n", j, (*array)[j].id, (*array)[j].nome, (*array)[j].idade, (*array)[j].saldo); //Mostra os usuários adicionados até então
-      }
+    for (int j = 0; j <= *tamanho; j++) {
+      printf("\nUsuario %i: %i, %s, %d, %.2lf\n", j, (*array)[j].id,
+             (*array)[j].nome, (*array)[j].idade,
+             (*array)[j].saldo); // Mostra os usuários adicionados até então
+    }
 
-      (*tamanho)++;
+    (*tamanho)++;
   }
 }
 
-void busca_de_usuario_id(struct USUARIO **array, int *tamanho){
-    int id;
+void busca_de_usuario_id(struct USUARIO **array, int *tamanho) {
+  int id;
 
-    printf("Digite o ID do usuário a ser buscado\n");
-    scanf("%i", &id);
+  printf("Digite o ID do usuário a ser buscado\n");
+  scanf("%i", &id);
 
-    for (int i = 0; i < *tamanho; i++){
-        if ((*array)[i].id == id) {
-            printf("Usuario %d tem saldo de %.2f", id, (*array)[i].saldo);
-          return;
-        }
+  for (int i = 0; i < *tamanho; i++) {
+    if ((*array)[i].id == id) {
+      printf("Usuario %d tem saldo de %.2f", id, (*array)[i].saldo);
+      return;
     }
-    printf("Erro: Usuario com o id %d nao encontrado", id);
-
+  }
+  printf("Erro: Usuario com o id %d nao encontrado", id);
 }
 
-void transferencia_entre_usuarios(struct USUARIO **array, int *tamanho){
-    int idOrigem, idDestino, quantia, indiceOrigem, indiceDestino, i;
-    printf("Digite o ID de origem da transação:\n");
-    scanf("%i", &idOrigem);
-    printf("Digite o ID de destino da transação:\n");
-    scanf("%i", &idDestino);
-    printf("Agora, digite a quantia a ser transferida:\n");
-    scanf("%i", &quantia);
+void transferencia_entre_usuarios(struct USUARIO **array, int *tamanho) {
+  int idOrigem, idDestino, quantia, indiceOrigem, indiceDestino, i;
+  printf("Digite o ID de origem da transação:\n");
+  scanf("%i", &idOrigem);
+  printf("Digite o ID de destino da transação:\n");
+  scanf("%i", &idDestino);
+  printf("Agora, digite a quantia a ser transferida:\n");
+  scanf("%i", &quantia);
 
-    for (i=0; i<*tamanho; i++){
-        indiceOrigem = -1;
-        indiceDestino = -1;
+  for (i = 0; i < *tamanho; i++) {
+    indiceOrigem = -1;
+    indiceDestino = -1;
 
-        if (array[i]->id == idOrigem){
-            idOrigem = i;
-            return;
-        }
-        if (array[i]->id == idDestino){
-            idDestino = i;
-            return;
-        }
+    if (array[i]->id == idOrigem) {
+      idOrigem = i;
+      return;
     }
-    if((indiceOrigem = -1) || (indiceDestino = -1)){
-        printf("Erro: usuário não encontrado.");
+    if (array[i]->id == idDestino) {
+      idDestino = i;
+      return;
     }
-    if (array[indiceOrigem]->saldo<quantia){
-        printf("Erro: Saldo insuficiente! Impossível ralizar a transferência.");
-    }
-    array[indiceOrigem]->saldo -= quantia;
-    array[indiceDestino]->saldo += quantia;
+  }
+  if ((indiceOrigem = -1) || (indiceDestino = -1)) {
+    printf("Erro: usuário não encontrado.");
+  }
+  if (array[indiceOrigem]->saldo < quantia) {
+    printf("Erro: Saldo insuficiente! Impossível ralizar a transferência.");
+  }
+  array[indiceOrigem]->saldo -= quantia;
+  array[indiceDestino]->saldo += quantia;
 
-    printf("Transferência realizada!");
-
+  printf("Transferência realizada!");
 }
 
 void limparMemoriaUsuarios(struct USUARIO **array, int *tamanho) {
-    free(*array); // Libera a memória do array de usuários
-    *array = NULL; // Evita o uso de um ponteiro para uma região de memória já liberada
+  free(*array); // Libera a memória do array de usuários
+  *array = NULL; // Evita o uso de um ponteiro para uma região de memória já liberada
 }
 
-salva_dados(struct USUARIO **array, int *tamanho){}
+// Abre o arquivo de banco de dados e carrega os dados para o array de usuários
+void carrega_dados(struct USUARIO **array, int *tamanho) {
+  char linha[256]; // Ajuste o tamanho conforme necessário para acomodar a linha
+                   // inteira
+  FILE *dados;
+  dados = fopen("dados_uaibank.csv", "r");
+
+  // Caso o arquivo não exista ele é criado e caso haja erro ao criar o arquivo
+  // o programa é encerrado
+  if (dados == NULL) {
+    printf("Criando arquivo\n");
+    dados = fopen("dados_uaibank.csv", "w");
+    if (dados == NULL) {
+      printf("Erro ao criar arquivo.\n");
+      exit(1);
+    }
+    fclose(dados);
+    return;
+  }
+
+  // Lê o arquivo linha por linha e armazena os dados no array
+  while (fgets(linha, sizeof(linha), dados) != NULL) {
+    *array = realloc(*array, (*tamanho + 1) * sizeof(struct USUARIO));
+    if (*array == NULL) {
+      printf("Erro ao alocar memoria.\n");
+      exit(1);
+    }
+
+    // Divide a linha nos campos desejados
+    (*array)[*tamanho].id = atoi(strtok(linha, ","));
+    strcpy((*array)[*tamanho].nome, strtok(NULL, ","));
+    (*array)[*tamanho].idade = atoi(strtok(NULL, ","));
+    (*array)[*tamanho].saldo = atof(strtok(NULL, ","));
+    (*tamanho)++;
+  }
+  fclose(dados);
+}
+
+// Printa o array no terminal
+void print_array(struct USUARIO *array, int tamanho) {
+  for (int i = 0; i < tamanho; i++) {
+    printf("Usuario %d: %d, %s, %d, %.2lf\n", i, array[i].id, array[i].nome,
+           array[i].idade, array[i].saldo);
+  }
+}
+
+// Salva os dados do array no arquivo de banco de dados
+void salva_dados(struct USUARIO **array, int *tamanho) {
+  FILE *dados;
+  dados = fopen("dados_uaibank.csv", "w");
+
+  if (dados == NULL) {
+    printf("Erro ao abrir arquivo.\n");
+    exit(1);
+  }
+
+  for (int i = 0; i < *tamanho; i++) {
+    fprintf(dados, "%d,%s,%d,%.2lf\n", (*array)[i].id, (*array)[i].nome,
+            (*array)[i].idade, (*array)[i].saldo);
+  }
+  fclose(dados);
+}
 
 int main(void) {
   struct USUARIO *arrayUsuarios = NULL;
   int tamanho = 0;
   int opc;
-    
-  FILE *dados;
-  dados = fopen("dados_uaibank.txt", "a");
-  
-  if (dados == NULL)
-    return 0;
+
+  // Carregar os dados do arquivo
+  carrega_dados(&arrayUsuarios, &tamanho);
+  // print_array(arrayUsuarios, tamanho);
 
   printf("\n\n:::: BEM-VINDOS AO UAIBANK ::::\n\n");
 
   printf("\n\nEscolha uma das opcoes a seguir:\n (1) - Inserir um usuario; \n "
          "(2) - Inserir varios usuarios; \n (3) - Buscar usuario por id; \n "
          "(4) - Transferir entre usuarios; \n (5) - Remover usuario por id; \n "
+         "(6) - Para printar usuarios cadastrados; \n "
          "Digite algo diferente para sair do programa; \n\n Digite sua opcao "
          "... ");
   scanf("%d", &opc);
 
-  while (opc < 6 && opc > 0) {
+  while (opc < 7 && opc > 0) {
 
     switch (opc) {
     case 1:
@@ -201,6 +269,11 @@ int main(void) {
       printf("%d", opc);
       break;
 
+    case 6:
+      // Printa banco de dados
+      print_array(arrayUsuarios, tamanho);
+      break;
+
     default:
       // Sair do programa
       break;
@@ -209,13 +282,14 @@ int main(void) {
         "\n\nEscolha outra das opcoes a seguir:\n (1) - Inserir um usuario; \n "
         "(2) - Inserir varios usuarios; \n (3) - Buscar usuario por id; \n "
         "(4) - Transferir entre usuarios; \n (5) - Remover usuario por id; \n "
+        "(6) - Para printar usuarios cadastrados; \n "
         "Digite algo diferente para sair do programa; \n\n Digite sua opcao "
         "... ");
     scanf("%d", &opc);
   }
 
   // Salvar os dados no arquivo
-  //salva_dados(&arrayUsuarios, &tamanho);
+  salva_dados(&arrayUsuarios, &tamanho);
 
   // Limpa a memória alocada
   limparMemoriaUsuarios(&arrayUsuarios, &tamanho);
