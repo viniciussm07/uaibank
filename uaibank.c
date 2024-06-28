@@ -41,6 +41,10 @@ void adiciona_usuario(struct USUARIO **array, int *tamanho) {
 
   printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n", (*array)[*tamanho].id, (*array)[*tamanho].nome, (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
 
+  for (int i = 0; i <= *tamanho; i++) {
+      printf("\nUsuario %i: %i, %s, %d, %.2lf\n", i, (*array)[i].id, (*array)[i].nome, (*array)[i].idade, (*array)[i].saldo);
+  } //Mostra os usuários adicionados até então
+
   (*tamanho)++;
 }
 
@@ -63,10 +67,9 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   }
 
   for (int i = 0; i < qnt_usuarios; i++) {
-      printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
-
       limparBuffer();
 
+      printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
       fgets((*array)[*tamanho].nome, sizeof((*array)[*tamanho].nome), stdin);
 
       size_t len = strlen((*array)[*tamanho].nome);
@@ -76,11 +79,16 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
       }
 
       printf("\n\nDigite a idade e o saldo do usuario (Exemplo: 32 900.50):\n\n");
+
       scanf("%d %lf", &(*array)[*tamanho].idade, &(*array)[*tamanho].saldo);
 
       (*array)[*tamanho].id = rand();
 
       printf("\n\nUsuario inserido com ID %d: %s, %d, %.2lf\n", (*array)[*tamanho].id, (*array)[*tamanho].nome, (*array)[*tamanho].idade, (*array)[*tamanho].saldo);
+
+      for (int j = 0; j <= *tamanho; j++) {
+          printf("\nUsuario %i: %i, %s, %d, %.2lf\n", j, (*array)[j].id, (*array)[j].nome, (*array)[j].idade, (*array)[j].saldo); //Mostra os usuários adicionados até então
+      }
 
       (*tamanho)++;
   }
@@ -94,7 +102,7 @@ void busca_de_usuario_id(struct USUARIO **array, int *tamanho){
 
     for (int i = 0; i < *tamanho; i++){
         if ((*array)[i].id == id) {
-            printf("Usuario %d tem saldo de %.2f", id, array[i]->saldo);
+            printf("Usuario %d tem saldo de %.2f", id, (*array)[i].saldo);
           return;
         }
     }
