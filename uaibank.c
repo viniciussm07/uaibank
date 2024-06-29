@@ -12,7 +12,7 @@ struct USUARIO {
 };
 
 // Limpa o buffer do teclado, removendo o \n
-void limparBuffer(void) {
+void limpar_buffer(void) {
   char c;
   while ((c = getchar()) != '\n' && c != EOF); 
 }
@@ -31,7 +31,7 @@ void adiciona_usuario(struct USUARIO **array, int *tamanho) {
   }
 
   // Remove '\n' do buffer
-  limparBuffer();
+  limpar_buffer();
 
   printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
 
@@ -87,7 +87,7 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   for (int i = 0; i < qnt_usuarios; i++) {
 
     // Remove '\n' do buffer
-    limparBuffer();
+    limpar_buffer();
 
     printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
 
