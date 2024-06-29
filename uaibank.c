@@ -205,7 +205,7 @@ void remove_usuario(struct USUARIO **array, int *tamanho) {
   printf("\n\nErro: Usuario com o id %d nao encontrado", id);
 }
 
-void limparMemoriaUsuarios(struct USUARIO **array, int *tamanho) {
+void limpar_memoria_usuarios(struct USUARIO **array, int *tamanho) {
   // Libera a memória do array de usuários
   free(*array);
   // Evita o uso de um ponteiro para uma região de memória já liberada
@@ -345,7 +345,7 @@ int main(void) {
   salva_dados(&arrayUsuarios, &tamanho);
 
   // Limpa a memória alocada
-  limparMemoriaUsuarios(&arrayUsuarios, &tamanho);
+  limpar_memoria_usuarios(&arrayUsuarios, &tamanho);
 
   return 0;
 }
