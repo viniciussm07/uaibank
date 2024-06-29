@@ -104,6 +104,34 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   }
 }
 
+void remove_usuario(struct USUARIO **array, int *tamanho) {
+    int id, i;
+
+    printf("\n\nDigite o ID do usuário a ser removido\n");
+    scanf("%i", &id);
+
+    for (i = 0; i < *tamanho; i++) {
+        if ((*array)[i].id == id) {
+            // Mover todos os elementos após o índice i uma posição para trás
+            for (int j = i; j < *tamanho - 1; j++) {
+                (*array)[j] = (*array)[j + 1];
+            }
+
+            // Realocar o array para o novo tamanho
+            *tamanho -= 1;
+            *array = realloc(*array, (*tamanho) * sizeof(struct USUARIO));
+            if (*array == NULL && *tamanho > 0) {
+                printf("Erro ao alocar memoria.\n");
+                exit(1);
+            }
+
+            printf("\n\nUsuario %d removido com sucesso", id);
+            return;
+        }
+    }
+    printf("\n\nErro: Usuario com o id %d nao encontrado", id);
+}
+
 void busca_de_usuario_id(struct USUARIO **array, int *tamanho) {
   int id;
 
@@ -265,8 +293,7 @@ int main(void) {
 
     case 5:
       // remove usuario por id
-      // remove_usuario(BANCODEDADOS);
-      printf("%d", opc);
+      remove_usuario(&arrayUsuarios, &tamanho);
       break;
 
     case 6:
