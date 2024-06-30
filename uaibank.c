@@ -153,11 +153,13 @@ void transferencia_entre_usuarios(struct USUARIO **array, int *tamanho) {
 
   // Percorre todo o array de usuários para encontrar os usuários com os ids informados
   for (i = 0; i < *tamanho; i++) {
-
+    
+    // Verifica se o id do usuário atual é igual ao id de origem 
     if ((*array)[i].id == idOrigem) {
       indiceOrigem = i;
     }
 
+    // Verifica se o id do usuário atual é igual ao id de destino
     if ((*array)[i].id == idDestino) {
       indiceDestino = i;
     }
@@ -167,10 +169,12 @@ void transferencia_entre_usuarios(struct USUARIO **array, int *tamanho) {
     printf("\n\nErro: usuário não encontrado.");
     return;
   }
+  // Verifica se o saldo do usuário de origem é suficiente para a transferência
   if ((*array)[indiceOrigem].saldo < quantia) {
     printf("\n\nErro: Saldo insuficiente! Impossível ralizar a transferência.");
     return;
   }
+  // Realiza a transferência
   (*array)[indiceOrigem].saldo -= quantia;
   (*array)[indiceDestino].saldo += quantia;
 
@@ -204,7 +208,7 @@ void remove_usuario(struct USUARIO **array, int *tamanho) {
       return;
     }
   }
-  printf("\n\nErro: Usuario com o id %d nao encontrado", id);
+  printf("\n\nErro: Usuario com o id %i nao encontrado", id);
 }
 
 void limpa_memoria_usuarios(struct USUARIO **array, int *tamanho) {
