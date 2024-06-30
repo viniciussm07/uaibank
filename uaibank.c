@@ -12,7 +12,7 @@ struct USUARIO {
 };
 
 // Limpa o buffer do teclado, removendo o \n
-void limpar_buffer(void) {
+void limpa_buffer(void) {
   char c;
   while ((c = getchar()) != '\n' && c != EOF); 
 }
@@ -31,7 +31,7 @@ void adiciona_usuario(struct USUARIO **array, int *tamanho) {
   }
 
   // Remove '\n' do buffer
-  limpar_buffer();
+  limpa_buffer();
 
   printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
 
@@ -70,10 +70,12 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   scanf("%d", &qnt_usuarios);
 
   // Verifica se o valor digitado é maior ou menor que zero
-  if (qnt_usuarios <= 0) {
+  while (qnt_usuarios <= 0) {
     printf("\nO valor digitado deve ser maior que zero.\n");
-    return;
-  } 
+     printf("\nQuantos usuarios deseja cadastrar?\n\nQuantidade: "); // Impressão de mensagem
+      scanf("%d", &qnt_usuarios); // Armazena a quantidade de usuários a serem adicionados
+  } // Verifica se o valor digitado é maior ou menor que zero
+
 
   // Realoca o tamanho do array para receber a quantidade de usuários a serem adicionados
   *array = realloc(*array, (*tamanho + qnt_usuarios) * sizeof(struct USUARIO)); 
@@ -87,7 +89,7 @@ void adiciona_varios_usuario(struct USUARIO **array, int *tamanho) {
   for (int i = 0; i < qnt_usuarios; i++) {
 
     // Remove '\n' do buffer
-    limpar_buffer();
+    limpa_buffer();
 
     printf("\n\nDigite o primeiro e o ultimo nome do usuario (Exemplo: Ana Silva):\n\n");
 
@@ -205,7 +207,7 @@ void remove_usuario(struct USUARIO **array, int *tamanho) {
   printf("\n\nErro: Usuario com o id %d nao encontrado", id);
 }
 
-void limpar_memoria_usuarios(struct USUARIO **array, int *tamanho) {
+void limpa_memoria_usuarios(struct USUARIO **array, int *tamanho) {
   // Libera a memória do array de usuários
   free(*array);
   // Evita o uso de um ponteiro para uma região de memória já liberada
@@ -251,7 +253,7 @@ void carrega_dados(struct USUARIO **array, int *tamanho) {
 }
 
 // Printa o array no terminal
-void print_array(struct USUARIO *array, int tamanho) {
+void print_array_usuarios(struct USUARIO *array, int tamanho) {
   for (int i = 0; i < tamanho; i++) {
     printf("Usuario %d: %d, %s, %d, %.2lf\n", i, array[i].id, array[i].nome,
            array[i].idade, array[i].saldo);
@@ -280,9 +282,8 @@ int main(void) {
   int tamanho = 0;
   int opc;
 
-  // Carregar os dados do arquivo
+  // Carregar os dados do arquivo caso exista
   carrega_dados(&arrayUsuarios, &tamanho);
-  // print_array(arrayUsuarios, tamanho);
 
   printf("\n\n:::: BEM-VINDOS AO UAIBANK ::::\n\n");
 
@@ -324,7 +325,7 @@ int main(void) {
 
     case 6:
       // Printa banco de dados
-      print_array(arrayUsuarios, tamanho);
+      print_array_usuarios(arrayUsuarios, tamanho);
       break;
 
     default:
@@ -345,7 +346,7 @@ int main(void) {
   salva_dados(&arrayUsuarios, &tamanho);
 
   // Limpa a memória alocada
-  limpar_memoria_usuarios(&arrayUsuarios, &tamanho);
+  limpa_memoria_usuarios(&arrayUsuarios, &tamanho);
 
   return 0;
 }
