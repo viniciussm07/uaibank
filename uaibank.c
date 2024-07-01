@@ -191,7 +191,7 @@ void remove_usuario(struct USUARIO **array, int *tamanho) {
   for (i = 0; i < *tamanho; i++) {
     // Verifica se o id do usuário atual é igual ao id informado
     if ((*array)[i].id == id) {
-      // Move o usuario informado para a ultima posicao do array
+      // Move todos os usuários uma posição para "em direção" ao começo do array
       for (int j = i; j < *tamanho - 1; j++) {
         (*array)[j] = (*array)[j + 1];
       }
